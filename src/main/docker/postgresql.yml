@@ -1,0 +1,11 @@
+version: '2'
+services:
+  mixweb-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/mixweb/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=mixweb
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
