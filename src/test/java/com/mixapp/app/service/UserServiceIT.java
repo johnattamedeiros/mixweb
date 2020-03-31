@@ -1,14 +1,13 @@
 package com.mixapp.app.service;
 
-import com.mixapp.app.MixwebApp;
-import com.mixapp.app.config.Constants;
-import com.mixapp.app.domain.PersistentToken;
-import com.mixapp.app.domain.User;
-import com.mixapp.app.repository.PersistentTokenRepository;
-import com.mixapp.app.repository.UserRepository;
-import com.mixapp.app.service.dto.UserDTO;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-import io.github.jhipster.security.RandomUtil;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,15 +20,16 @@ import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import com.mixapp.app.MixwebApp;
+import com.mixapp.app.config.Constants;
+import com.mixapp.app.domain.PersistentToken;
+import com.mixapp.app.domain.User;
+import com.mixapp.app.repository.PersistentTokenRepository;
+import com.mixapp.app.repository.UserRepository;
+import com.mixapp.app.service.dto.UserDTO;
+
+import io.github.jhipster.security.RandomUtil;
 
 /**
  * Integration tests for {@link UserService}.
@@ -42,9 +42,7 @@ public class UserServiceIT {
 
     private static final String DEFAULT_EMAIL = "johndoe@localhost";
 
-    private static final String DEFAULT_FIRSTNAME = "john";
-
-    private static final String DEFAULT_LASTNAME = "doe";
+    private static final String DEFAULT_NAME = "john";
 
     private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
 
@@ -75,8 +73,7 @@ public class UserServiceIT {
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
         user.setEmail(DEFAULT_EMAIL);
-        user.setFirstName(DEFAULT_FIRSTNAME);
-        user.setLastName(DEFAULT_LASTNAME);
+        user.setName(DEFAULT_NAME);
         user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
 

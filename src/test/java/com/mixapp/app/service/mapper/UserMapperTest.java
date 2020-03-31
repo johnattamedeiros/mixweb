@@ -33,8 +33,7 @@ public class UserMapperTest {
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
         user.setEmail("johndoe@localhost");
-        user.setFirstName("john");
-        user.setLastName("doe");
+        user.setName("john");
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
