@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+        <changeSet id="00000000000003" author="jhipster">
+        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
+    </changeSet>
+
+    <!--
+        JHipster core tables.
+        The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
+    -->
+    <changeSet id="00000000000004" author="jhipster">
+    
+        <createTable tableName="match">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)"/>
+            <column name="map" type="varchar(256)"/>
+            <column name="matchDate" type="timestamp"/>
+            
+        </createTable>
+    
+        <createTable tableName="match_results">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint"/>
+            <column name="match_id" type="bigint"/>
+            <column name="team" type="varchar(256)"/>
+            <column name="kill" type="bigint"/>
+            <column name="death" type="bigint"/>
+            <column name="assist" type="bigint"/>
+            <column name="damage" type="numeric"/>
+            <column name="roundsWin" type="bigint"/>
+            <column name="roundsLoss" type="bigint"/>
+            
+        </createTable>
+        
+        <addForeignKeyConstraint baseColumnNames="match_id"
+                                 baseTableName="match_results"
+                                 constraintName="fk_match_id_match"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="match_results"
+                                 constraintName="fk_match_user_id_jhi_user"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>
