@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +33,15 @@ public class MatchService {
         matchRepository.save(match);
         log.debug("Created Information for User: {}", match);
         return match;
+    }
+
+
+    @Transactional(readOnly = true)
+    public Page<Match> getAllMatches(Pageable pageable) {
+        return matchRepository.findAll(pageable);
+    }
+
+    public void deleteMatchById(Long id) {
+        matchRepository.deleteById(id);
     }
 }
