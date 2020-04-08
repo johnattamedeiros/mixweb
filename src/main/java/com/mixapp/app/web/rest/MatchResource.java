@@ -61,6 +61,7 @@ public class MatchResource {
     }
 
     @DeleteMapping("/matches/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         matchService.deleteMatchById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "A match is deleted with identifier " + id.toString(), id.toString())).build();

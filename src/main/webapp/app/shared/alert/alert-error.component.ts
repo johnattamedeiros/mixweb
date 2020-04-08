@@ -64,6 +64,9 @@ export class AlertErrorComponent implements OnDestroy {
           }
           break;
         }
+        case 403:
+          this.addErrorAlert('Action not Authorized');
+          break;
 
         case 404:
           this.addErrorAlert('Not found');

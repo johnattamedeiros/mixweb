@@ -29,7 +29,8 @@ public class UserDTO {
     @Size(min = 5, max = 254)
     private String email;
 
-    @Size(max = 256)
+    private String steamUrl;
+    
     private String imageUrl;
 
     private boolean activated = false;
@@ -55,6 +56,7 @@ public class UserDTO {
         this.id = user.getId();
         this.login = user.getLogin();
         this.name = user.getName();
+        this.steamUrl = user.getSteamUrl();
         this.email = user.getEmail();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
@@ -162,6 +164,14 @@ public class UserDTO {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getSteamUrl() {
+        return steamUrl;
+    }
+
+    public void setSteamUrl(String steamUrl) {
+        this.steamUrl = steamUrl;
     }
 
     @Override

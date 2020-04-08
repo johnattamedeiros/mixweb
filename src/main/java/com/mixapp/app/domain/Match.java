@@ -31,13 +31,12 @@ public class Match extends AbstractAuditingEntity implements Serializable {
     @Size(max = 254)
     @Column(name = "name", length = 254)
     private String name;
-    
+
     @NotNull
     @Size(max = 254)
     @Column(name = "map", length = 254)
     private String map;
 
-    @NotNull
     @Column(name = "matchDate")
     private Instant matchDate;
 
@@ -66,10 +65,16 @@ public class Match extends AbstractAuditingEntity implements Serializable {
     }
 
     public Instant getMatchDate() {
+        if (matchDate == null) {
+            return Instant.now();
+        }
         return matchDate;
     }
 
     public void setMatchDate(Instant matchDate) {
+        if (matchDate == null) {
+            matchDate = Instant.now();
+        }
         this.matchDate = matchDate;
     }
 
