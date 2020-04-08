@@ -6,15 +6,11 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-        <changeSet id="00000000000003" author="jhipster">
-        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
-    </changeSet>
-
     <!--
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
-    <changeSet id="00000000000004" author="jhipster">
+    <changeSet id="00000000000003" author="jhipster">
     
         <createTable tableName="match">
             <column name="id" type="bigint" >
@@ -22,7 +18,16 @@
             </column>
             <column name="name" type="varchar(256)"/>
             <column name="map" type="varchar(256)"/>
-            <column name="matchDate" type="timestamp"/>
+            <column name="match_date" type="timestamp"/>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="reset_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
             
         </createTable>
     
@@ -33,12 +38,21 @@
             <column name="user_id" type="bigint"/>
             <column name="match_id" type="bigint"/>
             <column name="team" type="varchar(256)"/>
-            <column name="kill" type="bigint"/>
-            <column name="death" type="bigint"/>
-            <column name="assist" type="bigint"/>
-            <column name="damage" type="numeric"/>
-            <column name="roundsWin" type="bigint"/>
-            <column name="roundsLoss" type="bigint"/>
+            <column name="kill" type="INTEGER"/>
+            <column name="death" type="INTEGER"/>
+            <column name="assist" type="INTEGER"/>
+            <column name="damage" type="DOUBLE"/>
+            <column name="rounds_win" type="INTEGER"/>
+            <column name="rounds_loss" type="INTEGER"/>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="reset_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
             
         </createTable>
         
@@ -53,5 +67,17 @@
                                  constraintName="fk_match_user_id_jhi_user"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+                                 
+      <loadData
+                  file="config/liquibase/data/match.csv"
+                  separator=";"
+                  tableName="match">
+            <column name="id" type="numeric"/>
+            <column name="name" type="STRING"/>
+            <column name="map" type="STRING"/>
+            <column name="match_date" type="timestamp"/>
+            <column name="created_by" type="STRING"/>
+            <column name="last_modified_by" type="STRING"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>

@@ -56,7 +56,7 @@ public class MatchResult extends AbstractAuditingEntity implements Serializable 
     
     @NotNull
     @Column(name = "damage")
-    private Long damage;
+    private Double damage;
     
     @NotNull
     @Column(name = "roundsWin")
@@ -122,11 +122,11 @@ public class MatchResult extends AbstractAuditingEntity implements Serializable 
         this.assist = assist;
     }
 
-    public Long getDamage() {
+    public Double getDamage() {
         return damage;
     }
 
-    public void setDamage(Long damage) {
+    public void setDamage(Double damage) {
         this.damage = damage;
     }
 
