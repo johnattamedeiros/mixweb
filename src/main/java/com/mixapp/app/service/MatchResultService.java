@@ -2,8 +2,6 @@ package com.mixapp.app.service;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mixapp.app.domain.Match;
 import com.mixapp.app.domain.MatchResult;
-import com.mixapp.app.repository.MatchRepository;
+import com.mixapp.app.domain.User;
 import com.mixapp.app.repository.MatchResultRepository;
+import com.mixapp.app.service.dto.MatchResultDTO;
 
 /**
  * Service class for managing users.
@@ -22,12 +21,23 @@ import com.mixapp.app.repository.MatchResultRepository;
 public class MatchResultService {
 
     private final MatchResultRepository matchResultRepository;
-
+    
     public MatchResultService(MatchResultRepository matchResultRepository) {
         this.matchResultRepository = matchResultRepository;
     }
 
-    public MatchResult createMatchResult(@Valid MatchResult matchResult) {
+    public MatchResult createMatchResult(@Valid MatchResultDTO matchResultDTO, User user, Match match) {
+        MatchResult matchResult = new MatchResult();
+        matchResult.setUser(user);
+        matchResult.setMatch(match);
+        matchResult.setTeam(matchResultDTO.getTeam());
+        matchResult.setKill(matchResultDTO.getKill());
+        matchResult.setDeath(matchResultDTO.getDeath());
+        matchResult.setAssist(matchResultDTO.getAssist());
+        matchResult.setDamage(matchResultDTO.getDamage());
+        matchResult.setRoundsWin(matchResultDTO.getRoundsWin());
+        matchResult.setRoundsLoss(matchResultDTO.getRoundsLoss());
+        
         matchResultRepository.save(matchResult);
         return matchResult;
     }
@@ -40,4 +50,5 @@ public class MatchResultService {
     public void deleteMatchResultById(Long id) {
         matchResultRepository.deleteById(id);
     }
+
 }

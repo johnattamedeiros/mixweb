@@ -23,18 +23,15 @@ public class MatchService {
 
     private final MatchRepository matchRepository;
 
-
     public MatchService(MatchRepository matchRepository) {
         this.matchRepository = matchRepository;
     }
-
 
     public Match createMatch(@Valid Match match) {
         matchRepository.save(match);
         log.debug("Created Information for User: {}", match);
         return match;
     }
-
 
     @Transactional(readOnly = true)
     public Page<Match> getAllMatches(Pageable pageable) {

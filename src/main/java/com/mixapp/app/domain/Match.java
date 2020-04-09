@@ -2,12 +2,16 @@ package com.mixapp.app.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -39,7 +43,10 @@ public class Match extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "matchDate")
     private Instant matchDate;
-
+    
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    private List<MatchResult> matchResults;
+    
     public Long getId() {
         return id;
     }
@@ -62,6 +69,15 @@ public class Match extends AbstractAuditingEntity implements Serializable {
 
     public void setMap(String map) {
         this.map = map;
+    }
+    
+
+    public List<MatchResult> getMatchResults() {
+        return matchResults;
+    }
+
+    public void setMatchResults(List<MatchResult> matchResults) {
+        this.matchResults = matchResults;
     }
 
     public Instant getMatchDate() {
@@ -91,7 +107,8 @@ public class Match extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Match [id=" + id + ", name=" + name + ", map=" + map + ", matchDate=" + matchDate + "]";
+        return "Match [id=" + id + ", name=" + name + ", map=" + map + ", matchDate=" + matchDate + ", matchResults="
+                + matchResults + "]";
     }
 
 }

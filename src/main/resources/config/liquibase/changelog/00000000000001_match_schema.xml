@@ -68,14 +68,32 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
                                  
-      <loadData
-                  file="config/liquibase/data/match.csv"
+        <loadData file="config/liquibase/data/match.csv"
                   separator=";"
                   tableName="match">
             <column name="id" type="numeric"/>
             <column name="name" type="STRING"/>
             <column name="map" type="STRING"/>
             <column name="match_date" type="timestamp"/>
+            <column name="created_by" type="STRING"/>
+            <column name="last_modified_by" type="STRING"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="00000000000004" author="jhipster">
+    
+     <loadData file="config/liquibase/data/matchResults.csv"
+                  separator=";"
+                  tableName="match_results">
+            <column name="id" type="numeric"/>
+            <column name="user_id" type="numeric"/>
+            <column name="match_id" type="numeric"/>
+            <column name="team" type="STRING"/>
+            <column name="kill" type="numeric"/>
+            <column name="death" type="numeric"/>
+            <column name="assist" type="numeric"/>
+            <column name="damage" type="numeric"/>
+            <column name="rounds_win" type="numeric"/>
+            <column name="rounds_loss" type="numeric"/>
             <column name="created_by" type="STRING"/>
             <column name="last_modified_by" type="STRING"/>
         </loadData>

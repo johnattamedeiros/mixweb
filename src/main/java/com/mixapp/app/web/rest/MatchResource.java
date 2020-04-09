@@ -39,7 +39,6 @@ public class MatchResource {
     
     private final MatchService matchService;
 
-
     public MatchResource(MatchService matchService) {
         this.matchService = matchService;
     }
