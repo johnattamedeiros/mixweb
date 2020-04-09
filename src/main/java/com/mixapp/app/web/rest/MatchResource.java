@@ -3,6 +3,7 @@ package com.mixapp.app.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -28,6 +29,7 @@ import com.mixapp.app.service.MatchService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 @RestController
 @RequestMapping("/api")
@@ -50,6 +52,12 @@ public class MatchResource {
             Match newMatch = matchService.createMatch(match);
             return ResponseEntity.created(new URI("/api/matches/" + match.getId()))
                 .body(newMatch);
+    }
+    
+    @GetMapping("/matches/{id}")
+    public ResponseEntity<Match> getExample(@PathVariable Long id) {
+        Optional<Match> match = matchService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(match);
     }
     
     @GetMapping("/matches")

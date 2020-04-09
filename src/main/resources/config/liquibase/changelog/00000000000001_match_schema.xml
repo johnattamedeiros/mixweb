@@ -18,6 +18,7 @@
             </column>
             <column name="name" type="varchar(256)"/>
             <column name="map" type="varchar(256)"/>
+            <column name="type" type="varchar(256)"/>
             <column name="match_date" type="timestamp"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
@@ -38,6 +39,7 @@
             <column name="user_id" type="bigint"/>
             <column name="match_id" type="bigint"/>
             <column name="team" type="varchar(256)"/>
+            <column name="type" type="varchar(256)"/>
             <column name="kill" type="INTEGER"/>
             <column name="death" type="INTEGER"/>
             <column name="assist" type="INTEGER"/>
@@ -77,6 +79,7 @@
             <column name="match_date" type="timestamp"/>
             <column name="created_by" type="STRING"/>
             <column name="last_modified_by" type="STRING"/>
+            <column name="type" type="STRING"/>
         </loadData>
     </changeSet>
     <changeSet id="00000000000004" author="jhipster">

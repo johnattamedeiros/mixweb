@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * A user.
  */
@@ -30,6 +32,7 @@ public class MatchResult extends AbstractAuditingEntity implements Serializable 
     @ManyToOne
     private User user;
     
+    @JsonIgnore
     @ManyToOne
     private Match match;
     

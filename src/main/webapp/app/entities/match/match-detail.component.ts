@@ -10,10 +10,10 @@ import { IMatch } from 'app/shared/model/match.model';
 export class MatchDetailComponent implements OnInit {
   match: IMatch | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ match }) => (this.match = match));
+    this.route.data.subscribe(({ match }) => (this.match = match));
   }
 
   previousState(): void {

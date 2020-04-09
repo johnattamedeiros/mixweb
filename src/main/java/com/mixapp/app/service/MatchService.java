@@ -1,5 +1,7 @@
 package com.mixapp.app.service;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -40,5 +42,9 @@ public class MatchService {
 
     public void deleteMatchById(Long id) {
         matchRepository.deleteById(id);
+    }
+
+    public Optional<Match> findOne(Long id) {
+        return matchRepository.findById(id);
     }
 }

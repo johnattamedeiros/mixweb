@@ -49,6 +49,7 @@ public class MatchResourceIT {
         match.setMap("dust_2");
         match.setMatchDate(Instant.now());
         match.setName("Mix da rapaziada");
+        match.setType("MM");
         
         restUserMockMvc.perform(post("/api/matches")
             .contentType(MediaType.APPLICATION_JSON)

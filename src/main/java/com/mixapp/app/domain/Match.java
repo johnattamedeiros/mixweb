@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,6 +39,10 @@ public class Match extends AbstractAuditingEntity implements Serializable {
     @Size(max = 254)
     @Column(name = "map", length = 254)
     private String map;
+    
+    
+    @Column(name = "type", length = 254)
+    private String type;
 
     @Column(name = "matchDate")
     private Instant matchDate;
@@ -94,6 +97,14 @@ public class Match extends AbstractAuditingEntity implements Serializable {
         this.matchDate = matchDate;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -107,8 +118,8 @@ public class Match extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Match [id=" + id + ", name=" + name + ", map=" + map + ", matchDate=" + matchDate + ", matchResults="
-                + matchResults + "]";
+        return "Match [id=" + id + ", name=" + name + ", map=" + map + ", type=" + type + ", matchDate=" + matchDate
+                + ", matchResults=" + matchResults + "]";
     }
 
 }

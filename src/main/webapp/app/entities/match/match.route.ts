@@ -84,5 +84,12 @@ export const matchRoute: Routes = [
       pageTitle: 'Matchs'
     },
     canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/result',
+    component: MatchDetailComponent,
+    resolve: {
+      match: MatchResolve
+    }
   }
 ];
