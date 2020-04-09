@@ -34,7 +34,7 @@
                     <td><a [routerLink]="['/matches', match.id, 'view']">{{ match.id }}</a></td>
                     <td>{{ match.name }}</td>
                     <td>{{ match.map }}</td>
-                    <td>{{ match.matchDate }}</td>
+                    <td>{{ match.matchDate | date:'dd/MM/yy HH:mm' }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

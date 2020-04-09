@@ -157,6 +157,8 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
+        user.setSteamUrl(userDTO.getSteamUrl());
+        user.setImageUrl(userDTO.getImageUrl());
         user.setResetDate(Instant.now());
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
@@ -174,21 +176,23 @@ public class UserService {
     }
 
     /**
-     * Update basic information (first name, last name, email, language) for the current user.
+     * Update basic information (name, steamUrl, email, language) for the current user.
      *
-     * @param firstName first name of user.
-     * @param lastName  last name of user.
+     * @param name first name of user.
      * @param email     email id of user.
      * @param langKey   language key.
      * @param imageUrl  image URL of user.
      */
-    public void updateUser(String name, String email, String langKey, String imageUrl) {
+    public void updateUser(String name, String steamUrl, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
                 user.setName(name);
                 if (email != null) {
                     user.setEmail(email.toLowerCase());
+                }
+                if(steamUrl != null) {
+                    user.setSteamUrl(steamUrl);
                 }
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
@@ -214,6 +218,9 @@ public class UserService {
                 user.setName(userDTO.getName());
                 if (userDTO.getEmail() != null) {
                     user.setEmail(userDTO.getEmail().toLowerCase());
+                }
+                if (userDTO.getSteamUrl() != null) {
+                    user.setSteamUrl(userDTO.getSteamUrl());
                 }
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
