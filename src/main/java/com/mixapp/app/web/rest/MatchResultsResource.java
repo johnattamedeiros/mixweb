@@ -22,48 +22,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mixapp.app.domain.Match;
+import com.mixapp.app.domain.MatchResult;
 import com.mixapp.app.security.AuthoritiesConstants;
-import com.mixapp.app.service.MatchService;
+import com.mixapp.app.service.MatchResultService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 
 @RestController
 @RequestMapping("/api")
-public class MatchResource {
+public class MatchResultsResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
     
-    private final MatchService matchService;
+    private final MatchResultService matchResultService;
 
-
-    public MatchResource(MatchService matchService) {
-        this.matchService = matchService;
+    public MatchResultsResource(MatchResultService matchResultService) {
+        this.matchResultService = matchResultService;
     }
 
-    @PostMapping("/matches")
+    @PostMapping("/matchResults")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Match> createMatch(@Valid @RequestBody Match match) throws URISyntaxException {
+    public ResponseEntity<MatchResult> createMatchResult(@Valid @RequestBody MatchResult matchResult) throws URISyntaxException {
 
-            Match newMatch = matchService.createMatch(match);
-            return ResponseEntity.created(new URI("/api/matches/" + match.getId()))
-                .body(newMatch);
+        MatchResult newMatchResult = matchResultService.createMatchResult(matchResult);
+            return ResponseEntity.created(new URI("/api/matchResults/" + matchResult.getId()))
+                .body(newMatchResult);
     }
     
-    @GetMapping("/matches")
-    public ResponseEntity<List<Match>> getAllMatches(Pageable pageable) {
-        final Page<Match> page = matchService.getAllMatches(pageable);
+    @GetMapping("/matchResults")
+    public ResponseEntity<List<MatchResult>> getAllMatchResults(Pageable pageable) {
+        final Page<MatchResult> page = matchResultService.getAllMatchesResult(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @DeleteMapping("/matches/{id}")
+    @DeleteMapping("/matchResults/{id}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
-        matchService.deleteMatchById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "A match is deleted with identifier " + id.toString(), id.toString())).build();
+    public ResponseEntity<Void> deleteMatchResult(@PathVariable Long id) {
+        matchResultService.deleteMatchResultById(id);
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "A match result is deleted with identifier " + id.toString(), id.toString())).build();
     }
 }
