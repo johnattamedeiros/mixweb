@@ -1,38 +1,125 @@
-<div class="row justify-content-center">
-    <div class="col-8">
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border-color: #3e8acc;
+        width: 100%;
+    }
+
+    .tg td {
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: #fff;
+        color: #444;
+    }
+
+    .tg th {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: #fff;
+        color: #444;
+        background-color: #fff;
+    }
+
+    .tg .tg-0 {
+        border-color: inherit;
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-player {
+        width: 65%;
+    }
+
+    .tg .tg-kill {
+        width: 5%;
+        text-align: center;
+    }
+
+    .tg .tg-assist {
+        width: 5%;
+        text-align: center;
+    }
+
+    .tg .tg-death {
+        width: 5%;
+        text-align: center;
+    }
+
+    .tg .tg-adr {
+        width: 10%;
+        text-align: center;
+    }
+
+    .tg .tg-rw {
+        width: 5%;
+        text-align: center;
+    }
+
+    .tg .tg-rl {
+        width: 5%;
+        text-align: center;
+    }
+
+    .terrorist {
+        background-color: #e6dcb7 !important;
+    }
+
+    .ct {
+        background-color: #c0e2f7 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
         <div *ngIf="match">
-            <h2><span>Match</span> {{ match.id }}</h2>
-wtf
-            <hr>
-
-            <jhi-alert-error></jhi-alert-error>
-
-            <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
-                <dd>
-                    <span>{{ match.name }}</span>
-                </dd>
-                <dt><span>Map</span></dt>
-                <dd>
-                    <span>{{ match.map }}</span>
-                </dd>
-                <dt><span>Match Date</span></dt>
-                <dd>
-                    <span>{{ match.matchDate }}</span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
+            <h2><span>{{ match.name }}</span></h2>
+            <h3>{{ match.map }} - {{ match.matchDate | date:'dd/MM/yy HH:mm' }}</h3>
+            <button type="submit" (click)="previousState()" class="btn btn-info">
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
             </button>
-
-            <button type="button"
-                    [routerLink]="['/match', match.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" [routerLink]="['./create']" class="btn btn-info">
+                <span>Create result</span>
             </button>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <div class="match-page">
+
+                <table class="tg">
+                    <thead>
+                        <th class="tg-player">Player</th>
+                        <th class="tg-kill">Kill</th>
+                        <th class="tg-assist">Assist</th>
+                        <th class="tg-death">Death </th>
+                        <th class="tg-adr">ADR</th>
+                        <th class="tg-rw">R. Win</th>
+                        <th class="tg-rl">R. Loss</th>
+                    </thead>
+                    <tbody *ngIf="match.matchResults">
+                        <tr *ngFor="let result of match.matchResults;"
+                            [ngClass]="result.team == 'T' ? 'terrorist': 'ct'">
+                            <td class="tg-player">{{ result.user.name }}</td>
+                            <td class="tg-kill">{{ result.kill }}</td>
+                            <td class="tg-assist">{{ result.assist }}</td>
+                            <td class="tg-death">{{ result.death }}</td>
+                            <td class="tg-adr">{{ result.adr | number:'1.2-2'}}</td>
+                            <td class="tg-rw">{{ result.roundsWin }}</td>
+                            <td class="tg-rl">{{ result.roundsLoss }}</td>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IMatch } from 'app/shared/model/match.model';
+import { IMatchResult } from 'app/shared/model/matchResult.model';
 
 type EntityResponseType = HttpResponse<IMatch>;
 type EntityArrayResponseType = HttpResponse<IMatch[]>;
@@ -12,11 +13,15 @@ type EntityArrayResponseType = HttpResponse<IMatch[]>;
 @Injectable({ providedIn: 'root' })
 export class MatchService {
   public resourceUrl = SERVER_API_URL + 'api/matches';
+  public resourceMatchResultUrl = SERVER_API_URL + 'api/matchResults';
 
   constructor(protected http: HttpClient) {}
 
   create(match: IMatch): Observable<EntityResponseType> {
     return this.http.post<IMatch>(this.resourceUrl, match, { observe: 'response' });
+  }
+  createMatchResult(matchResult: IMatchResult): Observable<EntityResponseType> {
+    return this.http.post<IMatchResult>(this.resourceMatchResultUrl, matchResult, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {

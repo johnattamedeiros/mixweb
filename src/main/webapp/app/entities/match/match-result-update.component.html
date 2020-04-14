@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 *ngIf="match" id="jhi-match-heading">Create a result to match {{match.name}}</h2>
+
+            <div *ngIf="match">
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="idUser">Player</label>
+                    <select class="form-control" formControlName="idUser" id="idUser">
+                        <option *ngFor="let user of users" value= {{user.id}}>
+                          {{user.name}}
+                        </option>
+                      </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="team">Team</label>
+                    <input type="text" class="form-control" name="team" id="team" formControlName="team"/>
+                    <div *ngIf="editForm.get('team')!.invalid && (editForm.get('team')!.dirty || editForm.get('team')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('team')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="kill">Kill</label>
+                    <input type="text" class="form-control" name="kill" id="kill" formControlName="kill"/>
+                    <div *ngIf="editForm.get('kill')!.invalid && (editForm.get('kill')!.dirty || editForm.get('kill')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('kill')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="death">Death</label>
+                    <input type="text" class="form-control" name="death" id="death" formControlName="death"/>
+                    <div *ngIf="editForm.get('death')!.invalid && (editForm.get('death')!.dirty || editForm.get('death')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('death')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="assist">Assist</label>
+                    <input type="text" class="form-control" name="assist" id="assist" formControlName="assist"/>
+                    <div *ngIf="editForm.get('assist')!.invalid && (editForm.get('assist')!.dirty || editForm.get('assist')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('assist')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="damage">Damage</label>
+                    <input type="text" class="form-control" name="damage" id="damage" formControlName="damage"/>
+                    <div *ngIf="editForm.get('damage')!.invalid && (editForm.get('damage')!.dirty || editForm.get('damage')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('damage')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="roundsWin">Rounds Win</label>
+                    <input type="text" class="form-control" name="roundsWin" id="roundsWin" formControlName="roundsWin"/>
+                    <div *ngIf="editForm.get('roundsWin')!.invalid && (editForm.get('roundsWin')!.dirty || editForm.get('roundsWin')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('roundsWin')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="roundsLoss">Rounds Loss</label>
+                    <input type="text" class="form-control" name="roundsLoss" id="roundsLoss" formControlName="roundsLoss"/>
+                    <div *ngIf="editForm.get('roundsLoss')!.invalid && (editForm.get('roundsLoss')!.dirty || editForm.get('roundsLoss')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('roundsLoss')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

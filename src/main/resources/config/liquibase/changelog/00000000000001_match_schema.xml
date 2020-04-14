@@ -43,6 +43,7 @@
             <column name="death" type="INTEGER"/>
             <column name="assist" type="INTEGER"/>
             <column name="damage" type="DOUBLE"/>
+            <column name="adr" type="DOUBLE"/>
             <column name="rounds_win" type="INTEGER"/>
             <column name="rounds_loss" type="INTEGER"/>
             <column name="created_by" type="varchar(50)">
@@ -94,6 +95,7 @@
             <column name="death" type="numeric"/>
             <column name="assist" type="numeric"/>
             <column name="damage" type="numeric"/>
+            <column name="adr" type="numeric"/>
             <column name="rounds_win" type="numeric"/>
             <column name="rounds_loss" type="numeric"/>
             <column name="created_by" type="STRING"/>

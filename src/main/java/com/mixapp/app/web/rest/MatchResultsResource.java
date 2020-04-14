@@ -22,15 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mixapp.app.domain.Match;
 import com.mixapp.app.domain.MatchResult;
-import com.mixapp.app.domain.User;
-import com.mixapp.app.repository.MatchRepository;
-import com.mixapp.app.repository.UserRepository;
 import com.mixapp.app.security.AuthoritiesConstants;
 import com.mixapp.app.service.MatchResultService;
 import com.mixapp.app.service.dto.MatchResultDTO;
-import com.mixapp.app.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -43,28 +38,16 @@ public class MatchResultsResource {
     private String applicationName;
     
     private final MatchResultService matchResultService;
-    private final MatchRepository matchRepository;
-    private final UserRepository userRepository;
+
     
-    public MatchResultsResource(MatchResultService matchResultService, MatchRepository matchRepository, UserRepository userRepository) {
+    public MatchResultsResource(MatchResultService matchResultService) {
         this.matchResultService = matchResultService;
-        this.matchRepository = matchRepository;
-        this.userRepository = userRepository;
     }
 
     @PostMapping("/matchResults")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<MatchResult> createMatchResult(@Valid @RequestBody MatchResultDTO matchResultDTO) throws URISyntaxException {
-        User user = userRepository.getOne(matchResultDTO.getIdUser());
-        Match match = matchRepository.getOne(matchResultDTO.getIdMatch());
-        if(match == null) {
-            throw new BadRequestAlertException("Match not found", "matchResult", "matchnotfound");
-        }
-        if(user == null) {
-            throw new BadRequestAlertException("User not found", "matchResult", "usernotfound");
-        }
-        
-        MatchResult newMatchResult = matchResultService.createMatchResult(matchResultDTO, user, match);
+         MatchResult newMatchResult = matchResultService.createMatchResult(matchResultDTO);
             return ResponseEntity.created(new URI("/api/matchResults/" + newMatchResult.getId()))
                 .body(newMatchResult);
     }

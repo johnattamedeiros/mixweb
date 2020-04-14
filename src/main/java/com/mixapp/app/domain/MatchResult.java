@@ -28,42 +28,49 @@ public class MatchResult extends AbstractAuditingEntity implements Serializable 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-    
+
     @ManyToOne
     private User user;
-    
+
     @JsonIgnore
     @ManyToOne
     private Match match;
-    
+
     @NotNull
     @Size(max = 254)
     @Column(name = "team", length = 254)
     private String team;
-    
+
     @NotNull
     @Column(name = "kill")
     private Integer kill;
-    
+
     @NotNull
     @Column(name = "death")
     private Integer death;
-    
+
     @NotNull
     @Column(name = "assist")
     private Integer assist;
-    
+
     @NotNull
     @Column(name = "damage")
     private Double damage;
-    
+
     @NotNull
     @Column(name = "roundsWin")
     private Integer roundsWin;
-    
+
     @NotNull
     @Column(name = "roundsLoss")
     private Integer roundsLoss;
+
+    @Column(name = "adr")
+    private Double adr;
+    
+    public MatchResult() {
+   
+    }
 
     public Long getId() {
         return id;
@@ -145,6 +152,21 @@ public class MatchResult extends AbstractAuditingEntity implements Serializable 
         this.roundsLoss = roundsLoss;
     }
 
+    public Double getAdr() {
+        Double rounds = Double.sum(this.roundsWin, this.roundsLoss);
+        adr = this.damage / rounds;
+        return adr;
+    }
+
+    public void setAdr(Double adr) {
+        if (adr != null) {
+            this.adr = adr;
+        }
+        Double rounds = Double.sum(this.roundsWin, this.roundsLoss);
+        adr = this.damage / rounds;
+        this.adr = adr;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -160,7 +182,7 @@ public class MatchResult extends AbstractAuditingEntity implements Serializable 
     public String toString() {
         return "MatchResult [id=" + id + ", user=" + user + ", match=" + match + ", team=" + team + ", kill=" + kill
                 + ", death=" + death + ", assist=" + assist + ", damage=" + damage + ", roundsWin=" + roundsWin
-                + ", roundsLoss=" + roundsLoss + "]";
+                + ", roundsLoss=" + roundsLoss + ", adr=" + adr + "]";
     }
-   
+
 }

@@ -12,6 +12,7 @@ import { MatchService } from './match.service';
 import { MatchComponent } from './match.component';
 import { MatchDetailComponent } from './match-detail.component';
 import { MatchUpdateComponent } from './match-update.component';
+import { MatchResultUpdateComponent } from './match-result-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class MatchResolve implements Resolve<IMatch> {
@@ -88,6 +89,13 @@ export const matchRoute: Routes = [
   {
     path: ':id/result',
     component: MatchDetailComponent,
+    resolve: {
+      match: MatchResolve
+    }
+  },
+  {
+    path: ':id/result/create',
+    component: MatchResultUpdateComponent,
     resolve: {
       match: MatchResolve
     }
