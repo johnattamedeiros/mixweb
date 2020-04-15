@@ -1,5 +1,6 @@
 package com.mixapp.app.service;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +39,10 @@ import io.github.jhipster.security.RandomUtil;
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
-
+    
+    @Autowired
+    private SteamScrapService steamScrapService;
+    
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -112,11 +117,17 @@ public class UserService {
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
         newUser.setName(userDTO.getName());
+        newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setSteamUrl(userDTO.getSteamUrl());
+        try {
+            String imageSteamUrl = steamScrapService.getSteamImage(userDTO.getSteamUrl());
+            newUser.setImageUrl(imageSteamUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (userDTO.getEmail() != null) {
             newUser.setEmail(userDTO.getEmail().toLowerCase());
         }
-        newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
         newUser.setActivated(true);
@@ -157,7 +168,15 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
+        user.setImageUrl(userDTO.getImageUrl());
         user.setSteamUrl(userDTO.getSteamUrl());
+        String imageSteamUrl;
+        try {
+            imageSteamUrl = steamScrapService.getSteamImage(userDTO.getSteamUrl());
+            user.setImageUrl(imageSteamUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         user.setImageUrl(userDTO.getImageUrl());
         user.setResetDate(Instant.now());
         user.setActivated(true);
@@ -191,11 +210,17 @@ public class UserService {
                 if (email != null) {
                     user.setEmail(email.toLowerCase());
                 }
+                user.setImageUrl(imageUrl);
                 if(steamUrl != null) {
                     user.setSteamUrl(steamUrl);
+                    try {
+                        String imageSteamUrl = steamScrapService.getSteamImage(steamUrl);
+                        user.setImageUrl(imageSteamUrl);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 user.setLangKey(langKey);
-                user.setImageUrl(imageUrl);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
@@ -219,10 +244,16 @@ public class UserService {
                 if (userDTO.getEmail() != null) {
                     user.setEmail(userDTO.getEmail().toLowerCase());
                 }
+                user.setImageUrl(userDTO.getImageUrl());
                 if (userDTO.getSteamUrl() != null) {
                     user.setSteamUrl(userDTO.getSteamUrl());
+                    try {
+                        String imageSteamUrl = steamScrapService.getSteamImage(userDTO.getSteamUrl());
+                        user.setImageUrl(imageSteamUrl);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
                 Set<Authority> managedAuthorities = user.getAuthorities();

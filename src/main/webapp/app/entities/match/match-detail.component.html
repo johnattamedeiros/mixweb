@@ -106,6 +106,7 @@
                         <th class="tg-adr">ADR</th>
                         <th class="tg-rw">R. Win</th>
                         <th class="tg-rl">R. Loss</th>
+                        <th class="tg-opt">Option</th>
                     </thead>
                     <tbody *ngIf="match.matchResults">
                         <tr *ngFor="let result of match.matchResults;"
@@ -117,6 +118,11 @@
                             <td class="tg-adr">{{ result.adr | number:'1.2-2'}}</td>
                             <td class="tg-rw">{{ result.roundsWin }}</td>
                             <td class="tg-rl">{{ result.roundsLoss }}</td>
+                            <td class="tg-opt">
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="deleteMatchResult(result.id)" class="btn btn-danger">
+                                <span>Delete</span>
+                            </button>
+                            </td>
                     </tbody>
                 </table>
             </div>

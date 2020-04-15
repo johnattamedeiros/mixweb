@@ -32,7 +32,7 @@ import io.github.jhipster.web.util.PaginationUtil;
 
 @RestController
 @RequestMapping("/api")
-public class MatchResultsResource {
+public class MatchResultResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -40,7 +40,7 @@ public class MatchResultsResource {
     private final MatchResultService matchResultService;
 
     
-    public MatchResultsResource(MatchResultService matchResultService) {
+    public MatchResultResource(MatchResultService matchResultService) {
         this.matchResultService = matchResultService;
     }
 

@@ -36,4 +36,7 @@ export class MatchService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+  deleteMatchResult(id: number): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.resourceMatchResultUrl}/${id}`, { observe: 'response' });
+  }
 }
