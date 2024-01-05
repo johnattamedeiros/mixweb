@@ -6,15 +6,15 @@
 
 <p align="center">
 <!-- Version -->
-  <a href="https://github.com/heliomarpm/udemy-downloader-gui/releases" target="_blank" rel="noopener noreferrer">
+  <a href="https://github.com/johnattamedeiros/mixweb/releases" target="_blank" rel="noopener noreferrer">
      <img alt="releases url" src="https://img.shields.io/github/v/release/johnattamedeiros/mixweb?style=for-the-badge&labelColor=1C1E26&color=2ea043"/>
   </a>
   <!-- Downloads -->
-  <a href="https://github.com/heliomarpm/udemy-downloader-gui/releases" target="_blank" rel="noopener noreferrer">
+  <a href="https://github.com/johnattamedeiros/mixweb/releases" target="_blank" rel="noopener noreferrer">
     <img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/johnattamedeiros/mixweb/total?style=for-the-badge&labelColor=1C1E26&color=2ea043">
   </a>
   <!-- Issues -->
-  <!-- <a href="https://github.com/heliomarpm/udemy-downloader-gui/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc" target="_blank">
+  <!-- <a href="https://github.com/johnattamedeiros/mixweb/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc" target="_blank">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/johnattamedeiros/mixweb?style=for-the-badge&labelColor=1C1E26">
   </a> -->
 </p>
